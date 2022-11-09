@@ -1,0 +1,7 @@
+{ animal
+	{ is_wild
+		{ teacher}
+		{ neighbour}
+	}
+	{ dont_exist}
+}

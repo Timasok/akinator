@@ -1,0 +1,15 @@
+
+************************************************************
+  code_of_error = 0
+  buf_length = 41
+  number_of_lines = 5
+  buf: 
+Za matan
+	Lines: 
+Za matan
+Za fizos
+Za lunu
+Za mamu
+Za papu
+
+************************************************************

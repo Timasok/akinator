@@ -1,0 +1,1 @@
+DEF_ERR(WRONG_MODE, 0)
