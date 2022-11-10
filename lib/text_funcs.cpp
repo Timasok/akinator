@@ -99,7 +99,7 @@ int printText(Text_info * text)
     if (text->number_of_lines != 0)
         PRINT_LOG("\tLines: \n");
     for (int counter = 0; counter < text->number_of_lines; counter++)
-        PRINT_LOG("%s\n", text->lines[counter]);
+        PRINT_LOG("%s| length = %d\n", text->lines[counter], strlen(text->lines[counter]));
 
     // for (int counter = 0; counter < text->number_of_lines; counter++)
     //     printf("%s\n", text->lines[counter]);

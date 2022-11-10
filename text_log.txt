@@ -1,15 +1,18 @@
 
 ************************************************************
   code_of_error = 0
-  buf_length = 41
-  number_of_lines = 5
+  buf_length = 68
+  number_of_lines = 8
   buf: 
-Za matan
+{ animal
 	Lines: 
-Za matan
-Za fizos
-Za lunu
-Za mamu
-Za papu
+{ animal| length = 8
+	{ is_wild| length = 10
+		{ teacher}| length = 12
+		{ neighbour}| length = 14
+	}| length = 2
+	{ dont_exist}| length = 14
+}| length = 1
+| length = 0
 
 ************************************************************

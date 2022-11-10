@@ -6,14 +6,14 @@ node [shape = "plaintext", style = "solid"];
 node1 [
 label=<
 <table border="0" cellborder="1" cellspacing="0">
-    <tr><td bgcolor="#dfdf91" port = "H1">NODE 1 = 0x557f9e3c0700</td></tr>
-    <tr><td bgcolor= "#5ca1cc"><font color="black"> animal </font></td></tr>
+    <tr><td bgcolor="#dfdf91" port = "H1">NODE 1 = 0x55a06ee22520</td></tr>
+    <tr><td bgcolor= "#5ca1cc"><font color="black"> (null) </font></td></tr>
     <tr>
     <td>
         <table border="0" cellborder="1">
         <tr>
-            <td bgcolor = "#70de9f" port = "L1">  LEFT = 0x557f9e3c0730 </td>
-            <td bgcolor = "#e02828" port = "R1"> RIGHT = 0x557f9e3c0760 </td>
+            <td bgcolor = "#70de9f" port = "L1">  LEFT = 0x55a06ee22960 </td>
+            <td bgcolor = "#e02828" port = "R1"> RIGHT = (nil) </td>
         </tr> 
         </table> 
     </td>
@@ -24,14 +24,14 @@ label=<
 node2 [
 label=<
 <table border="0" cellborder="1" cellspacing="0">
-    <tr><td bgcolor="#dfdf91" port = "H2">NODE 2 = 0x557f9e3c0730</td></tr>
-    <tr><td bgcolor= "#5ca1cc"><font color="black"> is_wild </font></td></tr>
+    <tr><td bgcolor="#dfdf91" port = "H2">NODE 2 = 0x55a06ee22960</td></tr>
+    <tr><td bgcolor= "#5ca1cc"><font color="black"> animal </font></td></tr>
     <tr>
     <td>
         <table border="0" cellborder="1">
         <tr>
-            <td bgcolor = "#70de9f" port = "L2">  LEFT = 0x557f9e3c0790 </td>
-            <td bgcolor = "#e02828" port = "R2"> RIGHT = 0x557f9e3c07c0 </td>
+            <td bgcolor = "#70de9f" port = "L2">  LEFT = 0x55a06ee229b0 </td>
+            <td bgcolor = "#e02828" port = "R2"> RIGHT = 0x55a06ee22aa0 </td>
         </tr> 
         </table> 
     </td>
@@ -42,14 +42,14 @@ label=<
 node1 -> node2:H2;node3 [
 label=<
 <table border="0" cellborder="1" cellspacing="0">
-    <tr><td bgcolor="#dfdf91" port = "H3">NODE 3 = 0x557f9e3c0790</td></tr>
-    <tr><td bgcolor= "#5ca1cc"><font color="black"> teacher </font></td></tr>
+    <tr><td bgcolor="#dfdf91" port = "H3">NODE 3 = 0x55a06ee229b0</td></tr>
+    <tr><td bgcolor= "#5ca1cc"><font color="black"> is_wild </font></td></tr>
     <tr>
     <td>
         <table border="0" cellborder="1">
         <tr>
-            <td bgcolor = "#70de9f" port = "L3">  LEFT = (nil) </td>
-            <td bgcolor = "#e02828" port = "R3"> RIGHT = (nil) </td>
+            <td bgcolor = "#70de9f" port = "L3">  LEFT = 0x55a06ee22a00 </td>
+            <td bgcolor = "#e02828" port = "R3"> RIGHT = 0x55a06ee22a50 </td>
         </tr> 
         </table> 
     </td>
@@ -60,8 +60,8 @@ label=<
 node2 -> node3:H3;node4 [
 label=<
 <table border="0" cellborder="1" cellspacing="0">
-    <tr><td bgcolor="#dfdf91" port = "H4">NODE 4 = 0x557f9e3c07c0</td></tr>
-    <tr><td bgcolor= "#5ca1cc"><font color="black"> neighbour </font></td></tr>
+    <tr><td bgcolor="#dfdf91" port = "H4">NODE 4 = 0x55a06ee22a00</td></tr>
+    <tr><td bgcolor= "#5ca1cc"><font color="black"> teacher </font></td></tr>
     <tr>
     <td>
         <table border="0" cellborder="1">
@@ -75,11 +75,11 @@ label=<
 </table>>
 ]
 
-node2 -> node4:H4;node5 [
+node3 -> node4:H4;node5 [
 label=<
 <table border="0" cellborder="1" cellspacing="0">
-    <tr><td bgcolor="#dfdf91" port = "H5">NODE 5 = 0x557f9e3c0760</td></tr>
-    <tr><td bgcolor= "#5ca1cc"><font color="black"> dont_exist </font></td></tr>
+    <tr><td bgcolor="#dfdf91" port = "H5">NODE 5 = 0x55a06ee22a50</td></tr>
+    <tr><td bgcolor= "#5ca1cc"><font color="black"> neighbour </font></td></tr>
     <tr>
     <td>
         <table border="0" cellborder="1">
@@ -93,5 +93,23 @@ label=<
 </table>>
 ]
 
-node1 -> node5:H5;
+node3 -> node5:H5;node6 [
+label=<
+<table border="0" cellborder="1" cellspacing="0">
+    <tr><td bgcolor="#dfdf91" port = "H6">NODE 6 = 0x55a06ee22aa0</td></tr>
+    <tr><td bgcolor= "#5ca1cc"><font color="black"> dont_exist </font></td></tr>
+    <tr>
+    <td>
+        <table border="0" cellborder="1">
+        <tr>
+            <td bgcolor = "#70de9f" port = "L6">  LEFT = (nil) </td>
+            <td bgcolor = "#e02828" port = "R6"> RIGHT = (nil) </td>
+        </tr> 
+        </table> 
+    </td>
+    </tr>
+</table>>
+]
+
+node2 -> node6:H6;
 }

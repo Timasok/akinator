@@ -1,7 +1,10 @@
 #ifndef AKINATOR_F_H
 #define AKINATOR_F_H
 
-struct Node{
+#include "text_funcs.h"
+
+struct Node
+{
 
     const char *data;
     Node * l_son;
@@ -42,6 +45,8 @@ void printPost(const Node * node);
 
 void printPreFile(const Node * node);
 int printTree(Tree_t * tree);
+
+int readDataBase(Text_info *text, size_t line_idx, int free_port, Node * node);
 int treeCtor(Tree_t *tree, const char mode);
 int treeDtor(Tree_t *tree);
 

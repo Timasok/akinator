@@ -6,12 +6,7 @@
 
 int main()
 {
-
-    Text_info txt = {};
-
-    textCtor(&txt, "data_base.txt");
-    printText(&txt);
-
+    /*
     Tree_t first = {};
     treeCtor(&first, GUESS_OBJECT);
 
@@ -37,10 +32,24 @@ int main()
 
     TREE_DUMP(&first);
 
-    textDtor(&txt);
     nodeDtor(first.main_node);
     treeDtor(&first);
 
+    */
+    Tree_t second = {};
+
+    Text_info txt = {};
+    textCtor(&txt, "database.txt");
+    printText(&txt);
+    
+    second.main_node = nodeCtor();
+    readDataBase(&txt, 0, LEFT_SON, second.main_node);
+    
+    TREE_DUMP(&second);
+
+    textDtor(&txt);
+    treeDtor(&second);
+    
     return 0;
 }
     // runThrough(first.main_node);

@@ -71,6 +71,7 @@ Node * nodeConnect(Node *parent, const char dest)
                 break;
     }
 
+    new_node->parent = parent;
     return new_node;
 }
 
@@ -278,6 +279,61 @@ int runThrough(const Node* start_node)
     return 0;
 }
 
+int readDataBase(Text_info *text, size_t line_idx, int free_port, Node * node)
+{
+    if (line_idx < 0 || line_idx >= text->number_of_lines)
+        return AK_ERROR_SIZE_T_OVERFLOW;
+
+    Node * new_node = nullptr;
+
+    char data[128] = " ";
+    const char * fig_start  = strchr(text->lines[line_idx], '{');
+    const char * fig_finish = strchr(text->lines[line_idx], '}');
+
+    printf("\nfig_start = %s fig_finish = %s", fig_start, fig_finish);
+    if (fig_start == nullptr && fig_finish == nullptr)
+    {
+        readDataBase(text, line_idx + 1, free_port, node);
+        return 0;
+    }
+
+    if (fig_start == nullptr && fig_finish != nullptr)    
+    {
+        readDataBase(text, line_idx + 1, RIGHT_SON, node->parent);
+        return 0;
+    }
+
+    if (fig_start != nullptr)
+    {
+        sscanf(fig_start + 2, "%s", data);
+        
+        if (fig_finish != nullptr)
+        {
+            int len = strlen(data);
+            data[len-1] = '\0';
+
+            new_node = nodeConnect(node, free_port);
+            new_node->data = strdup(data);
+            printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
+            readDataBase(text, line_idx + 1, (free_port + 1) % 2, node);
+
+        }else
+        {
+
+            new_node = nodeConnect(node, free_port);
+            new_node->data = strdup(data);
+            printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
+            readDataBase(text, line_idx + 1, LEFT_SON, new_node);//TODO check maybe it breaks here
+
+        }
+    
+        
+        return 0;
+    }    
+    
+    return 1;
+
+}
 
 int nodeDtor(Node *node)
 {
