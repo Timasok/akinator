@@ -43,6 +43,7 @@ void printPre(const Node * node);
 void printIn(const Node * node);
 void printPost(const Node * node);
 
+int openBaseToRewrite();
 void printPreFile(const Node * node);
 int printTree(Tree_t * tree);
 

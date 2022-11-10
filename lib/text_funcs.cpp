@@ -128,9 +128,10 @@ int returnTextError(Text_info * text)
 }
 
 int textDtor(Text_info * text)
-{
+{    
     free(text->buf);
     free(text->lines);
+
     return 0;
 }
 

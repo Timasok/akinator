@@ -33,8 +33,13 @@ int treeCtor(Tree_t *tree, const char mode)
             break;
     }
 
-    base = fopen("database.txt", "w+");
 
+    return 0;
+}
+
+int openBaseToRewrite()
+{
+    base = fopen("database.txt", "w+");
     return 0;
 }
 
@@ -290,7 +295,7 @@ int readDataBase(Text_info *text, size_t line_idx, int free_port, Node * node)
     const char * fig_start  = strchr(text->lines[line_idx], '{');
     const char * fig_finish = strchr(text->lines[line_idx], '}');
 
-    printf("\nfig_start = %s fig_finish = %s", fig_start, fig_finish);
+    // printf("\nfig_start = %s fig_finish = %s", fig_start, fig_finish);
     if (fig_start == nullptr && fig_finish == nullptr)
     {
         readDataBase(text, line_idx + 1, free_port, node);
@@ -314,7 +319,7 @@ int readDataBase(Text_info *text, size_t line_idx, int free_port, Node * node)
 
             new_node = nodeConnect(node, free_port);
             new_node->data = strdup(data);
-            printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
+            // printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
             readDataBase(text, line_idx + 1, (free_port + 1) % 2, node);
 
         }else
@@ -322,9 +327,8 @@ int readDataBase(Text_info *text, size_t line_idx, int free_port, Node * node)
 
             new_node = nodeConnect(node, free_port);
             new_node->data = strdup(data);
-            printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
-            readDataBase(text, line_idx + 1, LEFT_SON, new_node);//TODO check maybe it breaks here
-
+            // printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
+            readDataBase(text, line_idx + 1, LEFT_SON, new_node);
         }
     
         

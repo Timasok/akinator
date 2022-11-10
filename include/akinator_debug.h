@@ -17,6 +17,8 @@ int verifyTree(Tree_t *tree);
 int openLogs();
 int closeLogs();
 
+int nodeDump(const Node * node);
+
 int findNext(const Node* node, int (*oper)(const Node *));
 int makeDot(Tree_t *tree);
 int treeDump(Tree_t *tree, const char *name_of_file, const char *name_of_func, int number_of_line);

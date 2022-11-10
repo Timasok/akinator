@@ -99,6 +99,14 @@ static int oper(const Node * node)
     return 0;
 }
 
+int nodeDump(const Node * node)
+{
+    printf("\t%s\n", node->data);
+    printf("\tparent %p\n", node->parent);
+    printf( "l_son %p, r_son %p\n", node->l_son, node->r_son);
+    return 0;
+}
+
 int makeDot(Tree_t *tree)
 {
     graph_log = fopen("graph_log.html", "w");
@@ -127,6 +135,7 @@ int makeDot(Tree_t *tree)
 
 int treeDump(Tree_t *tree, const char *name_of_file, const char *name_of_func, int number_of_line)
 {
+    nodeNumber = 0;
     makeDot(tree);
     system(dump_comand);
 
