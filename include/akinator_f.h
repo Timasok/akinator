@@ -1,6 +1,9 @@
 #ifndef AKINATOR_F_H
 #define AKINATOR_F_H
 
+#define DBG_OUT fprintf(stderr, "file: %s func: %s line: %d\n", __FILE__, __FUNCTION__, __LINE__)
+#define SAY_AND_WRITE(sentence) printf("%s", sentence)
+
 #include "text_funcs.h"
 
 struct Node
@@ -19,18 +22,13 @@ struct Tree_t
     FILE * data_base;
 };
 
-enum openModes
-{
-    GUESS_OBJECT                = 0,
-    GET_DEFINITION_OF_AN_OBJECT = 1,
-    COMPARE_TWO_OBJECTS         = 2,
-}; 
-
 enum son
 {
     LEFT_SON  = 0,
     RIGHT_SON = 1,
 }; 
+
+const int MAX_BUFFER_LENGTH = 512;
 
 Node * nodeCtor();
 Node * nodeConnect(Node *parent, const char dest);
@@ -43,7 +41,7 @@ void printPre(const Node * node);
 void printIn(const Node * node);
 void printPost(const Node * node);
 
-int openBaseToRewrite();
+int saveBase(const Node *start_node);
 void printPreFile(const Node * node);
 int printTree(Tree_t * tree);
 

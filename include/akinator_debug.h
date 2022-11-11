@@ -16,7 +16,7 @@ int verifyTree(Tree_t *tree);
 
 int openLogs();
 int closeLogs();
-
+int getDumpNumber();
 int nodeDump(const Node * node);
 
 int findNext(const Node* node, int (*oper)(const Node *));

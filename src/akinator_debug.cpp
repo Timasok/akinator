@@ -30,6 +30,11 @@ int closeLogs()
    return 1;
 }
 
+int getDumpNumber()
+{
+    return pic_number;
+}
+
 int findNext(const Node* node, int (*oper)(const Node *))
 {
     if (!node)

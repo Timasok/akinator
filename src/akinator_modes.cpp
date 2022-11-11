@@ -5,7 +5,8 @@
 // sstatic int nodeNumber = 0;
 static bool guessed = false;
 static const Node * guessedNode = nullptr;
-static const int MAX_BUFFER_LENGTH = 128;
+
+//TODO add to text func замещение конца
 
 static int printAnswerInfo()
 {
@@ -16,16 +17,24 @@ static int printAnswerInfo()
 static int getAnswer(const Node * node, char *answer)
 {
 
-    *answer = ' ';
     printAnswerInfo();
-    scanf(" %c", answer); 
+   
+    int symbol = getchar(); 
     
+    if (symbol != '\n')
+        ungetc(symbol, stdin);
+      
+    *answer = getchar();
+
+    while (getchar() != '\n')
+        ;
+
     if (*answer == 'y' || *answer == 'n')
     {
         return 0;
     }else{
         printf("Ошибка ввода повторите\n");
-        getAnswer(node, answer);     
+        getAnswer(node, answer);
     }
 
     return 0;    
@@ -33,49 +42,53 @@ static int getAnswer(const Node * node, char *answer)
 
 static int printQuestion(const char * string)
 {
-    printf("\e[0;31m%s\e[0m?", string);
+    printf("\e[0;32m%s\e[0m?", string);
     return 0;
 }
 
 static int processGuessed(Node *node)
 {
-    // if (guessed == false)
-    // {
-    //     guessed = true;
-        guessedNode = node;
-        printf("Это ");
-        printQuestion(node->data);
-        
-        char answer = ' ';
-        getAnswer(node, &answer);
-        if(answer == 'n')
-        {
-            addNode(node);            
-        }else
-        {
-            printf("Эхху! Я угадал блэт!");
-        }
-
-    // }
+    guessedNode = node;
+    printf("Это ");
+    printQuestion(node->data);
+    
+    char answer = ' ';
+    getAnswer(node, &answer);
+    if(answer == 'n')
+    {
+        addNode(node);
+        printf("Добавил в базу! Больше с этим не проведёте\n");         
+    }else
+    {
+        printf("Эхху! Я угадал блэт!\n");
+    }
 
     return 0;
 }
+
+
 
 int addNode(Node * node)
 {
     if (node->l_son != nullptr || node->r_son != nullptr)
         return AK_ERROR_ADDING_NODE_TO_PARENT;
 
-    char correct_object[128]      = {};
-    char clarifying_question[128] = {};
+    char correct_object[MAX_BUFFER_LENGTH]      = {};
+    char clarifying_question[MAX_BUFFER_LENGTH] = {};
+    int len = 0;
 
-    printf("Введите правильный объект\n");
-    // fgets(correct_object, MAX_BUFFER_LENGTH, stdin);
-    scanf("%s\n", correct_object);
+    fprintf(stdout, "Введите правильный объект\n");
 
-    printf("Чем %s отличается от %s?\n", correct_object, node->data);
+    fgets(correct_object, MAX_BUFFER_LENGTH, stdin);
+    strchr(correct_object, '\n')[0] = '\0';
+    // printf("reading %d\n", correct_object[0]);
+
+    fprintf(stdout, "Чем %s отличается от %s\n", correct_object, node->data);
     fgets(clarifying_question, MAX_BUFFER_LENGTH, stdin);
-    
+    strchr(clarifying_question, '\n')[0] = '\0';
+
+    // fprintf(stdout, "correct object %s clarifying question %s\n",correct_object, clarifying_question);
+
     Node * incorrect_value = nodeConnect(node, RIGHT_SON);
     Node * correct_value = nodeConnect(node, LEFT_SON);
 

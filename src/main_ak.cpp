@@ -1,32 +1,75 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "text_funcs.h"
 #include "akinator_modes.h"
 #include "akinator_debug.h"
 
-int main()
+int main(int argc, char ** argv)
 {
-
-    Tree_t second = {};
+    Tree_t tree = {};
 
     Text_info txt = {};
     textCtor(&txt, "database.txt");
     printText(&txt);
     
-    second.main_node = nodeCtor();
-    readDataBase(&txt, 0, LEFT_SON, second.main_node);
+    tree.main_node = nodeCtor();
+    readDataBase(&txt, 0, LEFT_SON, tree.main_node);
     textDtor(&txt);  
 
-    TREE_DUMP(&second);
+    char line_to_say[MAX_BUFFER_LENGTH] = {};
+    sprintf(line_to_say, "\e[0;32mВыберите режим запуска программы\n"
+            "\t1 - Угадать объект\n"
+            "\t2 - Определить объект\n"
+            "\t3 - Сравнить объекты\n"
+            "\t4 - Вывести базу\n"
+            "\t5 - Выйти\n\e[0m");
 
-    guessObject(&second);
+    TREE_DUMP(&tree);
+//     guessObject(&tree);
+//     saveBase(tree.main_node->l_son);
 
-    TREE_DUMP(&second);
 
-    openBaseToRewrite();
-    printPreFile(second.main_node->l_son);
-    treeDtor(&second);
+//     int chosen_mode = 0;        
+//     while(chosen_mode != QUIT)
+//     {
+//         char system_command[MAX_BUFFER_LENGTH] = {};
+//         bool base_changed = false;
+//         SAY_AND_WRITE(line_to_say);
+//         scanf("%d", &chosen_mode);
+
+//         switch(chosen_mode)
+//         {
+//             case GUESS_OBJECT:
+//                     guessObject(&tree);
+//                     base_changed = true;
+//                     break;
+//             case DEFINE_OBJECT:
+//                     break;
+//             case COMPARE_TWO_OBJECTS:
+//                     break;
+//             case DUMP_BASE:
+//                     TREE_DUMP(&tree);
+//                     sprintf(system_command, "xdg-open graph_dumps/dump_%d.jpeg", getDumpNumber());
+//                     system(system_command);
+//                     break;
+//             case QUIT:
+//                     break;
+//             default:
+//                 SAY_AND_WRITE("TYPE AGAIN USER\n");
+//                 break;
+//         }
+
+//         if (base_changed == true)
+//         {
+//             saveBase(tree.main_node->l_son);
+//             TREE_DUMP(&tree);
+//         //     sprintf(system_command, "xdg-open graph_dumps/dump_%d.jpeg", getDumpNumber());
+//         //     system(system_command);
+//         }
+//     }
+
+    treeDtor(&tree);
     
     return 0;
 }
-    // runThrough(first.main_node);

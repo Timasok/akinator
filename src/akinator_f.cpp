@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "akinator_f.h"
+#include "akinator_modes.h"
 #include "akinator_debug.h"
 
 static FILE *base = nullptr;
@@ -20,7 +20,7 @@ int treeCtor(Tree_t *tree, const char mode)
             tree->data_base = fopen("database.txt", "r+");        
             break;
 
-        case GET_DEFINITION_OF_AN_OBJECT:
+        case DEFINE_OBJECT:
             tree->data_base = fopen("database.txt", "r");        
             break;
 
@@ -33,17 +33,115 @@ int treeCtor(Tree_t *tree, const char mode)
             break;
     }
 
-
     return 0;
 }
 
-int openBaseToRewrite()
+static int oper(const Node * node)
+{
+    printf("Node data %s number %d\n", node->data, nodeNumber);
+    return 0;
+}
+
+static int operNext(const Node* node, int (*oper)(const Node *))
+{
+    if (!node)
+        return 0;
+
+    nodeNumber++;    
+    oper(node);
+
+    if (node->l_son)
+    {
+        operNext(node->l_son, *oper);
+
+    }
+
+    if (node->r_son)
+    {
+        operNext(node->r_son, *oper);
+
+    }
+
+    return 0;
+
+}
+
+static int openBaseToRewrite()
 {
     system("rm database.txt");
     base = fopen("database.txt", "w+");
-    // fprintf(base, "stay low");
     return 0;
 }
+
+int readDataBase(Text_info *text, size_t line_idx, int free_port, Node * node)
+{
+    if (line_idx < 0 || line_idx >= text->number_of_lines)
+        return AK_ERROR_SIZE_T_OVERFLOW;
+
+    Node * new_node = nullptr;
+
+    char data[MAX_BUFFER_LENGTH] = {};
+    const char * fig_start  = strchr(text->lines[line_idx], '{');
+    const char * fig_finish = strchr(text->lines[line_idx], '}');
+
+    // printf("\nfig_start = %s fig_finish = %s", fig_start, fig_finish);
+    if (fig_start == nullptr && fig_finish == nullptr)
+    {
+        readDataBase(text, line_idx + 1, free_port, node);
+        return 0;
+    }
+
+    if (fig_start == nullptr && fig_finish != nullptr)    
+    {
+        readDataBase(text, line_idx + 1, RIGHT_SON, node->parent);
+        return 0;
+    }
+
+    if (fig_start != nullptr)
+    {
+        // sscanf(fig_start + 2, "%s", data);
+        sscanf(fig_start + 3, "%[^\n]s", data);
+
+        if (strchr(data, '"') != nullptr);
+        {
+            int data_len = abs(strchr(data, '"') - data);
+            data[data_len] = '\0';
+        }
+
+        if (fig_finish != nullptr)
+        {
+            new_node = nodeConnect(node, free_port);
+            new_node->data = strdup(data);
+            // printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
+            readDataBase(text, line_idx + 1, (free_port + 1) % 2, node);
+
+        }else
+        {
+
+            new_node = nodeConnect(node, free_port);
+            new_node->data = strdup(data);
+            // printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
+            readDataBase(text, line_idx + 1, LEFT_SON, new_node);
+        }
+    
+        
+        return 0;
+    }    
+    
+    return 1;
+
+}
+
+int saveBase(const Node *start_node)
+{
+    openBaseToRewrite();
+    printPreFile(start_node);
+    fprintf(base, "}");
+    fclose(base);
+    return 0;
+}
+
+//tree_funcs_extract
 
 int treeDtor(Tree_t *tree)
 {
@@ -210,7 +308,9 @@ void printPreFile(const Node * node)
         return;
         
     int len = 0;
-    fprintf(base, "{ %s", node->data);
+    // fprintf(base, "{ %s", node->data);
+
+    fprintf(base, "{ \"%s\"", node->data);
     strcat(indent, "\t");
 
     if (node->l_son)
@@ -250,95 +350,10 @@ void printPreFile(const Node * node)
     return;
 }
 
-static int oper(const Node * node)
-{
-    printf("Node data %s number %d\n", node->data, nodeNumber);
-    return 0;
-}
-
-static int operNext(const Node* node, int (*oper)(const Node *))
-{
-    if (!node)
-        return 0;
-
-    nodeNumber++;    
-    oper(node);
-
-    if (node->l_son)
-    {
-        operNext(node->l_son, *oper);
-
-    }
-
-    if (node->r_son)
-    {
-        operNext(node->r_son, *oper);
-
-    }
-
-    return 0;
-
-}
-
 int runThrough(const Node* start_node)
 {
     operNext(start_node, *oper);
     return 0;
-}
-
-int readDataBase(Text_info *text, size_t line_idx, int free_port, Node * node)
-{
-    if (line_idx < 0 || line_idx >= text->number_of_lines)
-        return AK_ERROR_SIZE_T_OVERFLOW;
-
-    Node * new_node = nullptr;
-
-    char data[128] = " ";
-    const char * fig_start  = strchr(text->lines[line_idx], '{');
-    const char * fig_finish = strchr(text->lines[line_idx], '}');
-
-    // printf("\nfig_start = %s fig_finish = %s", fig_start, fig_finish);
-    if (fig_start == nullptr && fig_finish == nullptr)
-    {
-        readDataBase(text, line_idx + 1, free_port, node);
-        return 0;
-    }
-
-    if (fig_start == nullptr && fig_finish != nullptr)    
-    {
-        readDataBase(text, line_idx + 1, RIGHT_SON, node->parent);
-        return 0;
-    }
-
-    if (fig_start != nullptr)
-    {
-        sscanf(fig_start + 2, "%s", data);
-        
-        if (fig_finish != nullptr)
-        {
-            int len = strlen(data);
-            data[len-1] = '\0';
-
-            new_node = nodeConnect(node, free_port);
-            new_node->data = strdup(data);
-            // printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
-            readDataBase(text, line_idx + 1, (free_port + 1) % 2, node);
-
-        }else
-        {
-
-            new_node = nodeConnect(node, free_port);
-            new_node->data = strdup(data);
-            // printf("old port = %s new node = %s port = %d", node->data, new_node->data, free_port);   
-            readDataBase(text, line_idx + 1, LEFT_SON, new_node);
-        }
-    
-        
-        return 0;
-    }    
-    
-    return 1;
-
 }
 
 int nodeDtor(Node *node)
