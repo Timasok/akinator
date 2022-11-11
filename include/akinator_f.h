@@ -10,9 +10,9 @@ struct Node
 {
 
     const char *data;
-    Node * l_son;
-    Node * r_son;
-    Node * parent;
+    Node * l_son = nullptr;
+    Node * r_son = nullptr;
+    Node * parent = nullptr;
 
 };
 
@@ -30,7 +30,7 @@ enum son
 
 const int MAX_BUFFER_LENGTH = 512;
 
-Node * nodeCtor();
+int nodeCtor(Node **node);
 Node * nodeConnect(Node *parent, const char dest);
 Node * findNode(Node *node, const char *string);
 

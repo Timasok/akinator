@@ -12,7 +12,7 @@ static char indent[64] = "\n";
 
 int treeCtor(Tree_t *tree, const char mode)
 {
-    tree->main_node = nodeCtor();
+    nodeCtor(&tree->main_node);
 
     switch (mode)
     {
@@ -68,7 +68,7 @@ static int operNext(const Node* node, int (*oper)(const Node *))
 
 static int openBaseToRewrite()
 {
-    system("rm database.txt");
+    system("rm database.txt"); // todo delete it and use just `w`
     base = fopen("database.txt", "w+");
     return 0;
 }
@@ -104,7 +104,7 @@ int readDataBase(Text_info *text, size_t line_idx, int free_port, Node * node)
 
         if (strchr(data, '"') != nullptr);
         {
-            int data_len = abs(strchr(data, '"') - data);
+            int data_len = abs(strchr(data, '"') - data); // зачем тут модуль?
             data[data_len] = '\0';
         }
 
@@ -145,16 +145,17 @@ int saveBase(const Node *start_node)
 
 int treeDtor(Tree_t *tree)
 {
-    fcloseall();
-
+    // fclose(tree->data_base);  //todo закрывай только нужные дескрипторы
+    nodeDtor(tree->main_node);
+    free(tree->main_node);
+    
     return 0;
 }
 
-Node * nodeCtor()
+int nodeCtor(Node **node)
 {
-    Node * new_node = (Node *)calloc(1, sizeof(Node));
-    
-    return new_node;
+    *node = (Node *)calloc(1, sizeof(Node));
+    return 0;
 }
 
 Node * nodeConnect(Node *parent, const char dest)
@@ -319,6 +320,8 @@ void printPreFile(const Node * node)
         printPreFile(node->l_son);
         fprintf(base, "}");
 
+        // todo можно с помощью принфа просто вывести строку заполненную
+        // одним определенным символом
         len = strlen(indent);
         if (len >= 2) 
             indent[len-1] = '\0'; 
@@ -358,19 +361,41 @@ int runThrough(const Node* start_node)
 
 int nodeDtor(Node *node)
 {
+    if (!node)
+        return 0;
 
-    if (node->l_son != NULL)
+    while(1)
     {
+        
+        printf("\e[0;32mдолжны были зафришеть - \e[0m\n");
+        nodeDump(node);
+        if (node->l_son == nullptr && node->r_son == nullptr)
+        {
+            if (node->parent == nullptr)
+                return 0;
+
+            if (node->parent->l_son == node)
+            {
+                node->parent->l_son = nullptr;
+                    
+            }
+            else if(node->parent->r_son == node)
+            {
+                node->parent->r_son = nullptr;
+            }
+
+            printf("\e[0;31mзафришен - \e[0m\n");
+            nodeDump(node);
+            free((void *)node->data);
+            free(node);
+            return 0;
+
+        }
+
         nodeDtor(node->l_son);
-        node->l_son = NULL;
 
-    }else if(node->r_son != NULL)
-    {
         nodeDtor(node->r_son);
-        node->r_son = NULL;
     }
 
-    free(node);   
-    node = NULL;
     return 0;
 }

@@ -13,7 +13,8 @@ int main(int argc, char ** argv)
     textCtor(&txt, "database.txt");
     printText(&txt);
     
-    tree.main_node = nodeCtor();
+    nodeCtor(&tree.main_node);
+
     readDataBase(&txt, 0, LEFT_SON, tree.main_node);
     textDtor(&txt);  
 
@@ -26,50 +27,49 @@ int main(int argc, char ** argv)
             "\t5 - Выйти\n\e[0m");
 
     TREE_DUMP(&tree);
-//     guessObject(&tree);
-//     saveBase(tree.main_node->l_son);
 
+    int chosen_mode = 0;        
+    while (chosen_mode != QUIT)
+    {
+        char system_command[MAX_BUFFER_LENGTH] = {};
+        bool base_changed = false;
+        SAY_AND_WRITE(line_to_say);
 
-//     int chosen_mode = 0;        
-//     while(chosen_mode != QUIT)
-//     {
-//         char system_command[MAX_BUFFER_LENGTH] = {};
-//         bool base_changed = false;
-//         SAY_AND_WRITE(line_to_say);
-//         scanf("%d", &chosen_mode);
+        if (scanf(" %d", &chosen_mode) != 1)
+        {
+                scanf( "%*[^\n]" );
+                continue;
+        }
+            
+        switch(chosen_mode)
+        {
+            case GUESS_OBJECT:
+                    guessObject(&tree);
+                    base_changed = true;
+                    break;
+            case DEFINE_OBJECT:
+                    break;
+            case COMPARE_TWO_OBJECTS:
+                    break;
+            case DUMP_BASE:
+                    TREE_DUMP(&tree);
+                    sprintf(system_command, "xdg-open graph_dumps/dump_%d.jpeg", getDumpNumber());
+                    system(system_command);
+                    break;
+            case QUIT:
+                    break;
+            default:
+                SAY_AND_WRITE("TYPE AGAIN USER\n");
+                break;
+        }
 
-//         switch(chosen_mode)
-//         {
-//             case GUESS_OBJECT:
-//                     guessObject(&tree);
-//                     base_changed = true;
-//                     break;
-//             case DEFINE_OBJECT:
-//                     break;
-//             case COMPARE_TWO_OBJECTS:
-//                     break;
-//             case DUMP_BASE:
-//                     TREE_DUMP(&tree);
-//                     sprintf(system_command, "xdg-open graph_dumps/dump_%d.jpeg", getDumpNumber());
-//                     system(system_command);
-//                     break;
-//             case QUIT:
-//                     break;
-//             default:
-//                 SAY_AND_WRITE("TYPE AGAIN USER\n");
-//                 break;
-//         }
-
-//         if (base_changed == true)
-//         {
-//             saveBase(tree.main_node->l_son);
-//             TREE_DUMP(&tree);
-//         //     sprintf(system_command, "xdg-open graph_dumps/dump_%d.jpeg", getDumpNumber());
-//         //     system(system_command);
-//         }
-//     }
+        if (base_changed == true)
+        {
+            saveBase(tree.main_node->l_son);
+        }
+    }
 
     treeDtor(&tree);
-    
+//     nodeDtor(tree.main_node);
     return 0;
 }
