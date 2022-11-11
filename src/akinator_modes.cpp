@@ -5,11 +5,11 @@
 // sstatic int nodeNumber = 0;
 static bool guessed = false;
 static const Node * guessedNode = nullptr;
+static const int MAX_BUFFER_LENGTH = 128;
 
 static int printAnswerInfo()
 {
-    printf("Если ДА нажмите (y) если НЕТ нажмите (n)\n");
-    // printf("if YES press (y), if NO press (n)\n");
+    printf("[y\\n]\n");
     return 0;
 }
 
@@ -27,12 +27,13 @@ static int getAnswer(const Node * node, char *answer)
         printf("Ошибка ввода повторите\n");
         getAnswer(node, answer);     
     }
-    
+
+    return 0;    
 }
 
 static int printQuestion(const char * string)
 {
-    printf("\e[0;31m%s\e[0m?\n", string);
+    printf("\e[0;31m%s\e[0m?", string);
     return 0;
 }
 
@@ -42,7 +43,7 @@ static int processGuessed(Node *node)
     // {
     //     guessed = true;
         guessedNode = node;
-        printf("Is it ");
+        printf("Это ");
         printQuestion(node->data);
         
         char answer = ' ';
@@ -52,7 +53,7 @@ static int processGuessed(Node *node)
             addNode(node);            
         }else
         {
-            printf("I guessed it ha!");
+            printf("Эхху! Я угадал блэт!");
         }
 
     // }
@@ -69,10 +70,11 @@ int addNode(Node * node)
     char clarifying_question[128] = {};
 
     printf("Введите правильный объект\n");
-    scanf("%s", correct_object);
+    // fgets(correct_object, MAX_BUFFER_LENGTH, stdin);
+    scanf("%s\n", correct_object);
 
     printf("Чем %s отличается от %s?\n", correct_object, node->data);
-    scanf("%s", clarifying_question);
+    fgets(clarifying_question, MAX_BUFFER_LENGTH, stdin);
     
     Node * incorrect_value = nodeConnect(node, RIGHT_SON);
     Node * correct_value = nodeConnect(node, LEFT_SON);
@@ -91,7 +93,7 @@ static int getAnswerNext(Node* node)
         return 0;
 
     char answer = ' ';
-    nodeDump(node);   
+    // nodeDump(node);   
 
     if (node->l_son == nullptr && node->r_son == nullptr)
     {

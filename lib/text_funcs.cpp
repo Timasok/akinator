@@ -9,8 +9,7 @@ const char* TXT_BORDER = "******************************************************
 #define ASSERT_OK(textPtr)                                                  \
    do{                                                                      \
       if (returnTextError(textPtr) != 0)                                    \
-       {  /*fprintf(stderr, "DUMP_CALLED: file: %s func: %s line: %d\n",*/  \ 
-                            /*  __FILE__, __FUNCTION__, __LINE__); */       \
+       {  /*fprintf(stderr, "DUMP_CALLED: file: %s func: %s line: %d\n",*/ /*  __FILE__, __FUNCTION__, __LINE__); */       \
            printText(textPtr);                                              \
        }                                                                    \
    } while (0)
@@ -20,7 +19,7 @@ static FILE* text_logs;
 #define PRINT_LOG(...)                                                  \
         do {                                                            \
             fprintf(text_logs, __VA_ARGS__);                            \
-        } while(0)   
+        } while(0)                                                      \
 
 static int openLogs()
 {
@@ -31,12 +30,20 @@ static int openLogs()
 static int closeLogs()
 {
     fclose(text_logs);
+    return 0;
 }
 
 int textCtor(Text_info * text, const char * file_name)
 {
 
     text->source_file = fopen(file_name, "r");   
+
+    if (text->source_file == nullptr)
+    {
+        printf("CANNOT OPEN DATABASE!\n");
+        return TEXT_ERROR_SOURCE_FILE_IS_NULL;         
+    }  
+
 
     struct stat data = {};
     stat(file_name, &data);
@@ -99,7 +106,7 @@ int printText(Text_info * text)
     if (text->number_of_lines != 0)
         PRINT_LOG("\tLines: \n");
     for (int counter = 0; counter < text->number_of_lines; counter++)
-        PRINT_LOG("%s| length = %d\n", text->lines[counter], strlen(text->lines[counter]));
+        PRINT_LOG("%s| length = %lu\n", text->lines[counter], strlen(text->lines[counter]));
 
     // for (int counter = 0; counter < text->number_of_lines; counter++)
     //     printf("%s\n", text->lines[counter]);

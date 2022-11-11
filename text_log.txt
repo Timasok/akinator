@@ -1,18 +1,29 @@
 
 ************************************************************
   code_of_error = 0
-  buf_length = 68
-  number_of_lines = 8
+  buf_length = 234
+  number_of_lines = 19
   buf: 
-{ animal
+{ Ползает
 	Lines: 
-{ animal| length = 8
-	{ is_wild| length = 10
-		{ teacher}| length = 12
-		{ neighbour}| length = 14
+{ Ползает| length = 16
+	{ Эпилептик| length = 21
+		{ Гомает| length = 16
+			{ Дотер}| length = 16
+			{ Ангел| length = 15
+				{  }| length = 8
+				{ Змей}| length = 15
+			}| length = 4
+		}| length = 3
+		{ Сильный| length = 18
+			{ Лев}| length = 12
+			{ Змея}| length = 14
+		}| length = 3
 	}| length = 2
-	{ dont_exist}| length = 14
-}| length = 1
+	{ Прыгает| length = 17
+		{ Кролик}| length = 17
+		{ Танцор}| length = 17
+	}| length = 2
 | length = 0
 
 ************************************************************

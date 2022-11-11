@@ -39,7 +39,9 @@ int treeCtor(Tree_t *tree, const char mode)
 
 int openBaseToRewrite()
 {
+    system("rm database.txt");
     base = fopen("database.txt", "w+");
+    // fprintf(base, "stay low");
     return 0;
 }
 

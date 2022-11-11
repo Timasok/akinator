@@ -23,9 +23,8 @@ int main()
 
     TREE_DUMP(&second);
 
-    // // openBaseToRewrite();
-    // printPreFile(second.main_node);
-
+    openBaseToRewrite();
+    printPreFile(second.main_node->l_son);
     treeDtor(&second);
     
     return 0;
