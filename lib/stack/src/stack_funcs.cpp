@@ -13,13 +13,6 @@
          stackDump(stkPtr, output, __FILE__, __FUNCTION__, __LINE__);   \
    } while (0)
 
-#define PRINT_ERR(...)                                                  \
-        do {                                                            \
-            fprintf(stderr,"\e[0;32mERROR: " );                         \
-            fprintf(stderr, __VA_ARGS__);                               \
-            fprintf(stderr,"\e[0m" );                                   \ 
-        } while(0)
-
 static void * getStackElement(Stack * stk, int index)
 {
     hardAssert(stk != NULL);
@@ -144,4 +137,4 @@ int stackPop(Stack *stk, elem_t * element)
 }
 
 
-#undef ASSERT_STK(stkPtr)
+#undef ASSERT_STK

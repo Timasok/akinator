@@ -30,11 +30,24 @@ int closeLogs()
    return 1;
 }
 
-// int nodeAssert(Node * node)
-// {
-//     printf("NOT  ")
-//     return 0;
-// }
+int nodeAssert(Node * node, const char * value)
+{
+    if (node == nullptr)
+    {
+        char line_to_say[MAX_BUFFER_LENGTH] = {};
+        sprintf(line_to_say, "НЕВОЗМОЖНО НАЙТИ %s В БАЗЕ!!!\n", value);
+        sayAndWrite(line_to_say);
+        return -1;
+    }else if(!(node->l_son == nullptr && node->r_son == nullptr))
+    {
+        char line_to_say[MAX_BUFFER_LENGTH] = {};
+        sprintf(line_to_say, "%s не объект, а признак!!!\n", value);
+        sayAndWrite(line_to_say);
+        return -2;
+    }
+
+    return 0;
+}
 
 int getDumpNumber()
 {

@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 typedef unsigned long long canary_t;
+
 typedef int elem_t;
 
 // extern FILE * stderr = fopen("../../stderr.txt","w");

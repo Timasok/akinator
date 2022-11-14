@@ -10,6 +10,17 @@ static FILE *base = nullptr;
 static int nodeNumber = 0;
 static char indent[64] = "\n";
 
+int sayAndWrite(const char * sentence)
+{   
+    char command[MAX_BUFFER_LENGTH] = {};
+    // sprintf(command, "festival -b \'(SayText \"%s\")\'", sentence);
+    sprintf(command, "echo \"%s\" | festival --tts --language russian", sentence);
+    // sprintf(command, "echo \"%s\" | festival --tts --language russian");
+    printf("%s", sentence);
+    system(command);
+    return 0;
+}
+
 int treeCtor(Tree_t *tree, const char mode)
 {
     nodeCtor(&tree->main_node);
@@ -272,6 +283,40 @@ void printPost(const Node * node)
     printf("%s ", node->data);
 
     return;
+}
+
+Node * findNode(Node *node, const char *string, Stack * answers)
+{
+
+    Node *result = nullptr;
+
+    if (!node) 
+        return result;
+
+    if (strcmp(string, node->data) == 0)
+    {
+        result = node;
+        return result;
+    }
+
+    if (node->l_son)
+    {
+        result = findNode(node->l_son, string);
+
+        if (result != nullptr)
+            stackPush(answers, YES);
+    }
+
+    if (node->r_son && result == nullptr)
+    {
+        result = findNode(node->r_son, string);
+
+        if (result != nullptr)
+            stackPush(answers, NO);
+    }
+
+    return result;
+
 }
 
 Node * findNode(Node *node, const char *string)

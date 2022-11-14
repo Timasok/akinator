@@ -19,12 +19,12 @@ int main(int argc, char ** argv)
     textDtor(&txt);  
 
     char line_to_say[MAX_BUFFER_LENGTH] = {};
-    sprintf(line_to_say, "\e[0;32mВыберите режим запуска программы\n"
+    sprintf(line_to_say, "Выберите режим запуска программы\n"
             "\t1 - Угадать объект\n"
             "\t2 - Определить объект\n"
             "\t3 - Сравнить объекты\n"
             "\t4 - Вывести базу\n"
-            "\t5 - Выйти\n\e[0m");
+            "\t5 - Выйти\n");
 
     TREE_DUMP(&tree);
 
@@ -33,7 +33,7 @@ int main(int argc, char ** argv)
     {
         char system_command[MAX_BUFFER_LENGTH] = {};
         bool base_changed = false;
-        SAY_AND_WRITE(line_to_say);
+        sayAndWrite(line_to_say);
 
         if (scanf(" %d", &chosen_mode) != 1)
         {
@@ -61,7 +61,7 @@ int main(int argc, char ** argv)
             case QUIT:
                     break;
             default:
-                SAY_AND_WRITE("TYPE AGAIN USER\n");
+                sayAndWrite("TYPE AGAIN USER\n");
                 break;
         }
 

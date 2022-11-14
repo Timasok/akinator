@@ -1,8 +1,8 @@
 
 ************************************************************
   code_of_error = 0
-  buf_length = 1046
-  number_of_lines = 52
+  buf_length = 1251
+  number_of_lines = 61
   buf: 
 { "Ползает"
 	Lines: 
@@ -20,7 +20,7 @@
 					}| length = 6
 					{ "Бог проги"| length = 26
 						{ "Дед"}| length = 17
-						{ "Прогер"}| length = 23
+						{ "Кирилл Лахнов"}| length = 36
 					}| length = 6
 				}| length = 5
 				{ "Дотер"}| length = 19
@@ -31,9 +31,15 @@
 			}| length = 4
 		}| length = 3
 		{ "Сильный"| length = 20
-			{ "Лев"}| length = 14
+			{ "есть писюн"| length = 26
+				{ "писюн"}| length = 19
+				{ "Серёга"}| length = 21
+			}| length = 4
 			{ "Торчок"| length = 19
-				{ "Sex pistol"}| length = 19
+				{ "Кусачки дёргает"| length = 37
+					{ "Zombie metal"}| length = 22
+					{ "Sex pistol"}| length = 20
+				}| length = 5
 				{ "Он МС"| length = 17
 					{ "Тимасок"}| length = 24
 					{ "Змея"}| length = 18
@@ -49,7 +55,10 @@
 		{ "Летает"| length = 18
 			{ "Кукушка"}| length = 22
 			{ "Читает"| length = 19
-				{ "Кизару"}| length = 21
+				{ "Он босс"| length = 21
+					{ "Влад Карецкий"}| length = 35
+					{ "Кизару"}| length = 22
+				}| length = 5
 				{ "он\его базированный гигачад шлепа не совершающий военных преступлений"| length = 138
 					{ "Александр Уденеев"}| length = 43
 					{ "Танцор"}| length = 22

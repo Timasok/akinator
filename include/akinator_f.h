@@ -2,9 +2,11 @@
 #define AKINATOR_F_H
 
 #define DBG_OUT fprintf(stderr, "file: %s func: %s line: %d\n", __FILE__, __FUNCTION__, __LINE__)
-#define SAY_AND_WRITE(sentence) printf("%s", sentence)
 
+// #define sayAndWrite(sentence)  printf("%s", sentence);        \
+                    
 #include "text_funcs.h"
+#include "stack_funcs.h"
 
 struct Node
 {
@@ -26,13 +28,24 @@ enum son
 {
     LEFT_SON  = 0,
     RIGHT_SON = 1,
+};
+
+enum answer
+{
+    YES  = 0,
+    NO   = 1,
 }; 
 
 const int MAX_BUFFER_LENGTH = 512;
 
 int nodeCtor(Node **node);
 Node * nodeConnect(Node *parent, const char dest);
+int sayAndWrite(const char * sentence);
+
+Node * findNode(Node *node, const char *string, Stack * answers);
 Node * findNode(Node *node, const char *string);
+
+int nodeAssert(Node * node);
 
 int runThrough(const Node* start_node);
 int nodeDtor(Node *node);

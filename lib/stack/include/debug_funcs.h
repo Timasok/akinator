@@ -7,8 +7,8 @@
         do {                                                            \
             fprintf(stderr,"\e[0;31mERROR: " );                         \
             fprintf(stderr, __VA_ARGS__);                               \
-            fprintf(stderr,"\e[0m" );                                   \ 
-        } while(0)
+            fprintf(stderr,"\e[0m");                                    \ 
+            } while(0)                                                  \
 
 
 void hardAssert(bool condition); 
