@@ -12,12 +12,13 @@ static char indent[64] = "\n";
 
 int sayAndWrite(const char * sentence)
 {   
-    char command[MAX_BUFFER_LENGTH] = {};
-    // sprintf(command, "festival -b \'(SayText \"%s\")\'", sentence);
-    sprintf(command, "echo \"%s\" | festival --tts --language russian", sentence);
-    // sprintf(command, "echo \"%s\" | festival --tts --language russian");
-    printf("%s", sentence);
-    system(command);
+    // char command[MAX_BUFFER_LENGTH] = {};
+    // // sprintf(command, "festival -b \'(SayText \"%s\")\'", sentence);
+    // sprintf(command, "echo \"%s\" | festival --tts --language russian", sentence);
+    // // sprintf(command, "echo \"%s\" | festival --tts --language russian");
+    // system(command);
+    fprintf(stdout, "%s", sentence);
+    
     return 0;
 }
 

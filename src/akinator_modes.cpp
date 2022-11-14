@@ -180,9 +180,14 @@ int guessObject(Tree_t *tree){
 int defineObject(Tree_t *tree)
 {
     char object_data[MAX_BUFFER_LENGTH] = {};
+
     sayAndWrite("Введите объект который хотите найти в базе\n");
-    scanf( "%*[^\n]" );
-    scanf("%s", &object_data);                        
+    fscanf(stdin, "%*[\n]" );
+    fprintf(stdin,"\n");
+
+    fscanf(stdin,"%[^\n]s", object_data);
+
+    fprintf(stdout, "%s %d\n", object_data, strlen(object_data));                      
 //     if (object_data[0] == 0)
 //         break;
 
@@ -215,12 +220,15 @@ int compareObjects(Tree_t *tree)
     char line_to_say[MAX_BUFFER_LENGTH] = {};
 
     sayAndWrite("Введите первый объект\n");
-    scanf( "%*[^\n]" );
-    scanf("%s", first_object);      
+    fscanf(stdin, "%*[\n]" );
+    fprintf(stdin,"\n");
+    scanf("%[^\n]s", first_object);      
     
     sayAndWrite("Введите второй объект\n");
-    scanf( "%*[^\n]" );
-    scanf("%s", second_object);
+    fscanf(stdin, "%*[\n]" );
+    fprintf(stdin,"\n");
+
+    scanf("%[^\n]s", second_object);
 
     // sprintf(line_to_say, "%s %s", first_object, second_object);
     // sayAndWrite(line_to_say);
@@ -282,7 +290,7 @@ int compareObjects(Tree_t *tree)
         // printf("\n");
 
         // print common parts
-        sprintf(line_to_say, "%s похож на %s тем, что \n", first_object, second_object);
+        sprintf(line_to_say, "%s похож на %s тем, что \n\t", first_object, second_object);
         sayAndWrite(line_to_say);
 
         first_counter--;
@@ -305,7 +313,7 @@ int compareObjects(Tree_t *tree)
                 sayAndWrite(" не ");
         }
 
-        sprintf(line_to_say, "\nНо %s ", first_object);
+        sprintf(line_to_say, "\n\tНо %s ", first_object);
         sayAndWrite(line_to_say);
 
         for (;first_counter > 0; first_counter--)
@@ -316,7 +324,7 @@ int compareObjects(Tree_t *tree)
                 sayAndWrite("не ");
         }
         
-        sprintf(line_to_say, "\nА %s ", second_object);
+        sprintf(line_to_say, "\n\tА %s ", second_object);
         sayAndWrite(line_to_say);
 
         for (;second_counter > 0; second_counter--)

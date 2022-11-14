@@ -19,12 +19,12 @@ int main(int argc, char ** argv)
     textDtor(&txt);  
 
     char line_to_say[MAX_BUFFER_LENGTH] = {};
-    sprintf(line_to_say, "Выберите режим запуска программы\n"
+    sprintf(line_to_say, "\e[0;32mВыберите режим запуска программы\n"
             "\t1 - Угадать объект\n"
             "\t2 - Определить объект\n"
             "\t3 - Сравнить объекты\n"
             "\t4 - Вывести базу\n"
-            "\t5 - Выйти\n");
+            "\t5 - Выйти\e[0m\n");
 
     TREE_DUMP(&tree);
 
