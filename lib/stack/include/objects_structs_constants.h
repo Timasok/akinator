@@ -2,6 +2,8 @@
 #ifndef OBJ_STRUCTS_CONSTS_H
 #define OBJ_STRUCTS_CONSTS_H
 
+#include <stdio.h>
+
 typedef unsigned long long canary_t;
 typedef int elem_t;
 

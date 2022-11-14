@@ -68,8 +68,7 @@ static int operNext(const Node* node, int (*oper)(const Node *))
 
 static int openBaseToRewrite()
 {
-    system("rm database.txt"); // todo delete it and use just `w`
-    base = fopen("database.txt", "w+");
+    base = fopen("database.txt", "w");
     return 0;
 }
 
@@ -104,7 +103,7 @@ int readDataBase(Text_info *text, size_t line_idx, int free_port, Node * node)
 
         if (strchr(data, '"') != nullptr);
         {
-            int data_len = abs(strchr(data, '"') - data); // зачем тут модуль?
+            int data_len = strchr(data, '"') - data;
             data[data_len] = '\0';
         }
 
@@ -148,7 +147,7 @@ int treeDtor(Tree_t *tree)
     // fclose(tree->data_base);  //todo закрывай только нужные дескрипторы
     nodeDtor(tree->main_node);
     free(tree->main_node);
-    
+
     return 0;
 }
 
@@ -367,8 +366,8 @@ int nodeDtor(Node *node)
     while(1)
     {
         
-        printf("\e[0;32mдолжны были зафришеть - \e[0m\n");
-        nodeDump(node);
+        // printf("\e[0;32mдолжны были зафришеть - \e[0m\n");
+        // nodeDump(node);
         if (node->l_son == nullptr && node->r_son == nullptr)
         {
             if (node->parent == nullptr)
@@ -384,8 +383,8 @@ int nodeDtor(Node *node)
                 node->parent->r_son = nullptr;
             }
 
-            printf("\e[0;31mзафришен - \e[0m\n");
-            nodeDump(node);
+            // printf("\e[0;31mзафришен - \e[0m\n");
+            // nodeDump(node);
             free((void *)node->data);
             free(node);
             return 0;

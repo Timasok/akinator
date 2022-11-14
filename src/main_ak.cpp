@@ -40,7 +40,7 @@ int main(int argc, char ** argv)
                 scanf( "%*[^\n]" );
                 continue;
         }
-            
+
         switch(chosen_mode)
         {
             case GUESS_OBJECT:
@@ -48,8 +48,10 @@ int main(int argc, char ** argv)
                     base_changed = true;
                     break;
             case DEFINE_OBJECT:
+                    defineObject(&tree);
                     break;
             case COMPARE_TWO_OBJECTS:
+                    compareObjects(&tree);
                     break;
             case DUMP_BASE:
                     TREE_DUMP(&tree);

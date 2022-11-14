@@ -30,9 +30,15 @@ int closeLogs()
    return 1;
 }
 
+// int nodeAssert(Node * node)
+// {
+//     printf("NOT  ")
+//     return 0;
+// }
+
 int getDumpNumber()
 {
-    return pic_number;
+    return pic_number - 1;
 }
 
 int findNext(const Node* node, int (*oper)(const Node *))

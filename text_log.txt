@@ -1,14 +1,62 @@
 
 ************************************************************
   code_of_error = 0
-  buf_length = 69
-  number_of_lines = 4
+  buf_length = 1046
+  number_of_lines = 52
   buf: 
 { "Ползает"
 	Lines: 
 { "Ползает"| length = 18
-		{ "Эпилептик"}| length = 25
-		{ "Прыгает"	}| length = 22
+	{ "Эпилептик"| length = 23
+		{ "Гомает"| length = 18
+			{ "Спит"| length = 15
+				{ "Ведёт матан"| length = 29
+					{ "РТшная"| length = 21
+						{ "Знамка"}| length = 23
+						{ "Фопфофское но не кошачее"| length = 55
+							{ "Кондрашова"}| length = 32
+							{ "Редкозубов"}| length = 32
+						}| length = 7
+					}| length = 6
+					{ "Бог проги"| length = 26
+						{ "Дед"}| length = 17
+						{ "Прогер"}| length = 23
+					}| length = 6
+				}| length = 5
+				{ "Дотер"}| length = 19
+			}| length = 4
+			{ "Живёт на нк"| length = 27
+				{ "РТшник"}| length = 21
+				{ "Змей"}| length = 17
+			}| length = 4
+		}| length = 3
+		{ "Сильный"| length = 20
+			{ "Лев"}| length = 14
+			{ "Торчок"| length = 19
+				{ "Sex pistol"}| length = 19
+				{ "Он МС"| length = 17
+					{ "Тимасок"}| length = 24
+					{ "Змея"}| length = 18
+				}| length = 5
+			}| length = 4
+		}| length = 3
+	}| length = 2
+	{ "Прыгает"| length = 19
+		{ "Бреется"| length = 20
+			{ "Артём Каграманян"}| length = 39
+			{ "Кролик"}| length = 20
+		}| length = 3
+		{ "Летает"| length = 18
+			{ "Кукушка"}| length = 22
+			{ "Читает"| length = 19
+				{ "Кизару"}| length = 21
+				{ "он\его базированный гигачад шлепа не совершающий военных преступлений"| length = 138
+					{ "Александр Уденеев"}| length = 43
+					{ "Танцор"}| length = 22
+				}| length = 5
+			}| length = 4
+		}| length = 3
+	}| length = 2
 }| length = 1
 
 ************************************************************
