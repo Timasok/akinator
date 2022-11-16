@@ -1,4 +1,6 @@
 #include <string.h>
+#include <unistd.h>
+
 #include "akinator_modes.h"
 #include "akinator_debug.h"
 
@@ -53,7 +55,7 @@ static int printQuestion(const char * string)
 static int processGuessed(Node *node)
 {
     guessedNode = node;
-    printf("Это ");
+    sayAndWrite("Это ", 'g');
     printQuestion(node->data);
     
     char answer = ' ';
@@ -61,10 +63,10 @@ static int processGuessed(Node *node)
     if(answer == 'n')
     {
         addNode(node);
-        printf("Добавил в базу! Больше с этим не проведёте\n");         
+        sayAndWrite("Добавил в базу! Больше с этим не проведёте\n", 'w');         
     }else
     {
-        printf("Эхху! Я угадал блэт! Давай ещё!!!\n");
+        sayAndWrite("Эхху! Я угадал блэт! Давай ещё!!!\n", 'w');
     }
 
     return 0;
@@ -79,13 +81,16 @@ int addNode(Node * node)
     char clarifying_question[MAX_BUFFER_LENGTH] = {};
     int len = 0;
 
-    fprintf(stdout, "Введите правильный объект\n");
+    sayAndWrite("Введите правильный объект\n", 'g');
 
     fgets(correct_object, MAX_BUFFER_LENGTH, stdin);
     strchr(correct_object, '\n')[0] = '\0';
     // printf("reading %d\n", correct_object[0]);
 
-    fprintf(stdout, "Чем %s отличается от %s\n", correct_object, node->data);
+    char line_to_say[MAX_BUFFER_LENGTH] = {};
+    sprintf(line_to_say, "Чем %s отличается от %s\n", correct_object, node->data);
+    sayAndWrite(line_to_say, 'g');
+
     fgets(clarifying_question, MAX_BUFFER_LENGTH, stdin);
     strchr(clarifying_question, '\n')[0] = '\0';
 
@@ -223,9 +228,6 @@ int compareObjects(Tree_t *tree)
 
     scanf("%[^\n]s", second_object);
 
-    // sprintf(line_to_say, "%s %s", first_object, second_object);
-    // sayAndWrite(line_to_say);
-
     Node *first_node = findNode(tree->main_node->l_son, first_object);
     Node *second_node = findNode(tree->main_node->l_son, second_object);
     
@@ -274,11 +276,15 @@ int compareObjects(Tree_t *tree)
         second_counter--;
         while (first_counter > 0 && second_counter > 0)
         {
+
             first_counter--;
-            second_counter--;
+            second_counter--;    
             
             if (answers_one[first_counter] == answers_two[second_counter])
             {   
+                if (answers_one[first_counter-1] == answers_one[first_counter]->r_son )
+                    sayAndWrite("не ", 'w');
+                
                 sprintf(line_to_say, "%s ", answers_one[first_counter]->data);
                 sayAndWrite(line_to_say, 'w');
                 
@@ -286,32 +292,38 @@ int compareObjects(Tree_t *tree)
             {
                 break;
             }
-            if (answers_one[first_counter-1] == answers_one[first_counter]->r_son)
-                sayAndWrite(" не ", 'w');
+            
         }
 
-        sprintf(line_to_say, "\n\tНо %s ", first_object);
+        sleep(1);
+        sprintf(line_to_say, "\nНо %s \n\t", first_object);
         sayAndWrite(line_to_say, 'w');
 
         for (;first_counter > 0; first_counter--)
         {
-            sprintf(line_to_say, "%s ", answers_one[first_counter]->data);
-            sayAndWrite(line_to_say, 'w');
             if (answers_one[first_counter-1] == answers_one[first_counter]->r_son)
                 sayAndWrite("не ", 'w');
+            
+            sprintf(line_to_say, "%s ", answers_one[first_counter]->data);
+            sayAndWrite(line_to_say, 'w');
+            
         }
         
-        sprintf(line_to_say, "\n\tА %s ", second_object);
+        sleep(1);
+        sprintf(line_to_say, "\nА %s \n\t", second_object);
         sayAndWrite(line_to_say, 'w');
 
         for (;second_counter > 0; second_counter--)
         {
+            if (answers_two[second_counter-1] == answers_two[second_counter]->r_son)
+                sayAndWrite("не ", 'w');
+            
             sprintf(line_to_say, "%s ", answers_two[second_counter]->data);
             sayAndWrite(line_to_say, 'w');
-            if (answers_two[second_counter-1] == answers_two[second_counter]->r_son)
-                sayAndWrite(" не ", 'w');
+            
         }
 
+        sayAndWrite("\n", 'w');
 
         return 0;  
 

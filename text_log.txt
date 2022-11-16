@@ -1,8 +1,8 @@
 
 ************************************************************
   code_of_error = 0
-  buf_length = 1335
-  number_of_lines = 64
+  buf_length = 1456
+  number_of_lines = 70
   buf: 
 { "Ползает"
 	Lines: 
@@ -12,7 +12,10 @@
 			{ "Спит"| length = 15
 				{ "Ведёт матан"| length = 29
 					{ "РТшная"| length = 21
-						{ "Знамка"}| length = 23
+						{ "Дёргается"| length = 28
+							{ "Рубцова"}| length = 26
+							{ "Знамка"}| length = 24
+						}| length = 7
 						{ "Фопфофское но не кошачее"| length = 55
 							{ "Кондрашова"}| length = 32
 							{ "Редкозубов"}| length = 32
@@ -29,7 +32,10 @@
 				}| length = 5
 			}| length = 4
 			{ "Живёт на нк"| length = 27
-				{ "РТшник"}| length = 21
+				{ "хуй знает"| length = 25
+					{ "Китара"}| length = 22
+					{ "РТшник"}| length = 22
+				}| length = 5
 				{ "Змей"}| length = 17
 			}| length = 4
 		}| length = 3
