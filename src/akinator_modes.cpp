@@ -5,7 +5,6 @@
 // sstatic int nodeNumber = 0;
 static bool guessed = false;
 static const Node * guessedNode = nullptr;
-static bool proceed_definition = false;
 const int MAX_DEPTH = 20;
 
 //TODO add to text func замещение конца
@@ -35,7 +34,7 @@ static int getAnswer(const Node * node, char *answer)
     {
         return 0;
     }else{
-        printf("Ошибка ввода повторите\n");
+        sayAndWrite("Ошибка ввода повторите\n", 'r');
         getAnswer(node, answer);
     }
 
@@ -44,7 +43,10 @@ static int getAnswer(const Node * node, char *answer)
 
 static int printQuestion(const char * string)
 {
-    printf("\e[0;32m%s\e[0m?", string);
+    char line_to_say[MAX_BUFFER_LENGTH] = {};
+    sprintf(line_to_say, "%s?", string);
+    sayAndWrite(line_to_say, 'g');
+
     return 0;
 }
 
@@ -151,7 +153,7 @@ static int getPreviousPhrase(Node* node, Node* primal_node)
         sprintf(line_to_say, " %s", node->data);
 
     }
-        sayAndWrite(line_to_say); 
+        sayAndWrite(line_to_say, 'w'); 
 
     if (node->parent->l_son == node)
     {
@@ -161,7 +163,7 @@ static int getPreviousPhrase(Node* node, Node* primal_node)
 
     if (node->parent->r_son == node)
     {
-        sayAndWrite(" не"); 
+        sayAndWrite(" не", 'w'); 
         getPreviousPhrase(node->parent, primal_node);
 
     }
@@ -181,37 +183,28 @@ int defineObject(Tree_t *tree)
 {
     char object_data[MAX_BUFFER_LENGTH] = {};
 
-    sayAndWrite("Введите объект который хотите найти в базе\n");
+    sayAndWrite("Введите объект который хотите найти в базе\n", 'g');
     fscanf(stdin, "%*[\n]" );
     fprintf(stdin,"\n");
 
     fscanf(stdin,"%[^\n]s", object_data);
 
-    fprintf(stdout, "%s %d\n", object_data, strlen(object_data));                      
-//     if (object_data[0] == 0)
-//         break;
-
     Node *correct_node = findNode(tree->main_node->l_son, object_data);
-
-    proceed_definition = true;
 
     if (correct_node == nullptr)
     {
         char line_to_say[MAX_BUFFER_LENGTH] = {};
         sprintf(line_to_say, "Объект %s не найден в базе. Сделайте другой запрос.\n", object_data);
-        sayAndWrite(line_to_say);
+        sayAndWrite(line_to_say, 'r');
     
     }else
     {
         getPreviousPhrase(correct_node, tree->main_node);
-        sayAndWrite("\n");
+        sayAndWrite("\n", 'w');
     }
-
-    proceed_definition = false;
 
     return 0;
 }
-
 
 int compareObjects(Tree_t *tree)
 {
@@ -219,12 +212,12 @@ int compareObjects(Tree_t *tree)
     char second_object[MAX_BUFFER_LENGTH] = {};
     char line_to_say[MAX_BUFFER_LENGTH] = {};
 
-    sayAndWrite("Введите первый объект\n");
+    sayAndWrite("Введите первый объект\n", 'g');
     fscanf(stdin, "%*[\n]" );
     fprintf(stdin,"\n");
     scanf("%[^\n]s", first_object);      
     
-    sayAndWrite("Введите второй объект\n");
+    sayAndWrite("Введите второй объект\n", 'g');
     fscanf(stdin, "%*[\n]" );
     fprintf(stdin,"\n");
 
@@ -274,24 +267,8 @@ int compareObjects(Tree_t *tree)
             
         }
 
-        // printf("depth 1 = %d depth 2 = %d\n", first_counter, second_counter);
-
-        // for (int idx_one = 0; idx_one < first_counter; idx_one++)
-        // {
-        //     printf(" %p ", answers_one[idx_one]);
-    
-        // }
-        // printf("\n");
-        // for (int idx_two = 0; idx_two < second_counter; idx_two++)
-        // {
-        //     printf(" %p ", answers_two[idx_two]);
-    
-        // }
-        // printf("\n");
-
-        // print common parts
         sprintf(line_to_say, "%s похож на %s тем, что \n\t", first_object, second_object);
-        sayAndWrite(line_to_say);
+        sayAndWrite(line_to_say, 'w');
 
         first_counter--;
         second_counter--;
@@ -303,36 +280,36 @@ int compareObjects(Tree_t *tree)
             if (answers_one[first_counter] == answers_two[second_counter])
             {   
                 sprintf(line_to_say, "%s ", answers_one[first_counter]->data);
-                sayAndWrite(line_to_say);
+                sayAndWrite(line_to_say, 'w');
                 
             }else
             {
                 break;
             }
             if (answers_one[first_counter-1] == answers_one[first_counter]->r_son)
-                sayAndWrite(" не ");
+                sayAndWrite(" не ", 'w');
         }
 
         sprintf(line_to_say, "\n\tНо %s ", first_object);
-        sayAndWrite(line_to_say);
+        sayAndWrite(line_to_say, 'w');
 
         for (;first_counter > 0; first_counter--)
         {
             sprintf(line_to_say, "%s ", answers_one[first_counter]->data);
-            sayAndWrite(line_to_say);
+            sayAndWrite(line_to_say, 'w');
             if (answers_one[first_counter-1] == answers_one[first_counter]->r_son)
-                sayAndWrite("не ");
+                sayAndWrite("не ", 'w');
         }
         
         sprintf(line_to_say, "\n\tА %s ", second_object);
-        sayAndWrite(line_to_say);
+        sayAndWrite(line_to_say, 'w');
 
         for (;second_counter > 0; second_counter--)
         {
             sprintf(line_to_say, "%s ", answers_two[second_counter]->data);
-            sayAndWrite(line_to_say);
+            sayAndWrite(line_to_say, 'w');
             if (answers_two[second_counter-1] == answers_two[second_counter]->r_son)
-                sayAndWrite(" не ");
+                sayAndWrite(" не ", 'w');
         }
 
 

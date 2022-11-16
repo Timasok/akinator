@@ -9,16 +9,36 @@
 static FILE *base = nullptr;
 static int nodeNumber = 0;
 static char indent[64] = "\n";
+static int VOICE_ACTIVE = 1;
 
-int sayAndWrite(const char * sentence)
+int sayAndWrite(const char * sentence, char color)
 {   
-    // char command[MAX_BUFFER_LENGTH] = {};
-    // // sprintf(command, "festival -b \'(SayText \"%s\")\'", sentence);
-    // sprintf(command, "echo \"%s\" | festival --tts --language russian", sentence);
-    // // sprintf(command, "echo \"%s\" | festival --tts --language russian");
-    // system(command);
-    fprintf(stdout, "%s", sentence);
-    
+    char command[MAX_BUFFER_LENGTH] = {};
+
+    switch(color)
+    {
+        case 'w':
+            fprintf(stdout, "\e[0m%s\e[0m", sentence);        
+            break;
+        case 'g':
+            fprintf(stdout, "\e[0;32m%s\e[0m", sentence);        
+            break;        
+        case 'r':
+            fprintf(stdout, "\e[0;31m%s\e[0m", sentence);        
+            break;  
+        default :
+            fprintf(stdout, "%s", sentence);        
+            break;
+    }
+
+
+    sprintf(command, "echo \"%s\" | festival -b --tts --language russian > nul 2>&1", sentence);
+
+    if (VOICE_ACTIVE == 1)
+    {
+        system(command);        
+    }
+
     return 0;
 }
 

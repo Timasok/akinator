@@ -40,7 +40,7 @@ const int MAX_BUFFER_LENGTH = 512;
 
 int nodeCtor(Node **node);
 Node * nodeConnect(Node *parent, const char dest);
-int sayAndWrite(const char * sentence);
+int sayAndWrite(const char * sentence, char color);
 
 Node * findNode(Node *node, const char *string, Stack * answers);
 Node * findNode(Node *node, const char *string);

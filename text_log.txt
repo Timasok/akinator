@@ -1,8 +1,8 @@
 
 ************************************************************
   code_of_error = 0
-  buf_length = 1251
-  number_of_lines = 61
+  buf_length = 1335
+  number_of_lines = 64
   buf: 
 { "Ползает"
 	Lines: 
@@ -23,7 +23,10 @@
 						{ "Кирилл Лахнов"}| length = 36
 					}| length = 6
 				}| length = 5
-				{ "Дотер"}| length = 19
+				{ "Говорит по-кошачьи"| length = 42
+					{ "Даня Калинин"}| length = 33
+					{ "Дотер"}| length = 20
+				}| length = 5
 			}| length = 4
 			{ "Живёт на нк"| length = 27
 				{ "РТшник"}| length = 21

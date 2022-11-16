@@ -36,13 +36,13 @@ int nodeAssert(Node * node, const char * value)
     {
         char line_to_say[MAX_BUFFER_LENGTH] = {};
         sprintf(line_to_say, "НЕВОЗМОЖНО НАЙТИ %s В БАЗЕ!!!\n", value);
-        sayAndWrite(line_to_say);
+        sayAndWrite(line_to_say, 'r');
         return -1;
     }else if(!(node->l_son == nullptr && node->r_son == nullptr))
     {
         char line_to_say[MAX_BUFFER_LENGTH] = {};
         sprintf(line_to_say, "%s не объект, а признак!!!\n", value);
-        sayAndWrite(line_to_say);
+        sayAndWrite(line_to_say, 'r');
         return -2;
     }
 
